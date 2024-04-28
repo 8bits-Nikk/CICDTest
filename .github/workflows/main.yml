@@ -7,7 +7,7 @@ on:
       - master
       - 'release/**'
 
-jobs:
+jobs:  
   #First job
   install-and-test:
     runs-on: ubuntu-latest
@@ -58,4 +58,9 @@ jobs:
           echo "coverage - ${{ steps.coverageComment.outputs.coverage }}"
           echo "color - ${{ steps.coverageComment.outputs.color }}"
           echo "Coverage Html - ${{ steps.coverageComment.outputs.coverageHtml }}"
+  # Second Job
+  build-android:
+    needs: install-and-test
+    uses: ./.github/workflows/build-android.yml
+    secrets: inherit
         
