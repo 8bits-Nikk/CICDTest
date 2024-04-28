@@ -1,11 +1,11 @@
 name: Run Unit Test and Lint Check
 
 on: 
-  push:
+  pull_request:
     branches:
       - main
       - master
-      - 'feature/**'
+      - 'release/**'
 
 jobs:
   #First job
@@ -31,10 +31,19 @@ jobs:
       - name: Unit & Integration tests
         run: yarn test:ci
 
-      - name: Jest coverage report
-        uses: ArtiomTr/jest-coverage-report-action@v2.3.0
+      - name: Jest Coverage Comment
+        uses: MishaKav/jest-coverage-comment@main
         with:
-          coverage-file: ./jest-report.json
-          base-coverage-file: ./jest-report.json
+          coverage-summary-path: ./coverage/coverage-summary.json
+          title: My Jest Coverage Comment
+          summary-title: My Summary Title
+          badge-title: Coverage
+          hide-comment: false
+          create-new-comment: false
+          hide-summary: false
+          junitxml-title: My JUnit Title
+          junitxml-path: ./coverage/junit.xml
+          coverage-title: My Coverage Title
+          coverage-path: ./coverage.txt
 
         
