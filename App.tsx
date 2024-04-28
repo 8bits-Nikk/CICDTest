@@ -78,12 +78,13 @@ function App(): React.JSX.Element {
           }}>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
+            screen and then come back to see your edits. I have changed the
+            default screen
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
           </Section>
-          <Section title="Debug">
+          <Section title="Debug Your App">
             <DebugInstructions />
           </Section>
           <Section title="Learn More">
