@@ -30,6 +30,9 @@ jobs:
 
       - name: Unit & Integration tests
         run: yarn test:ci
+        
+      - name: Generate coverage
+        run: yarn test:ci:tee
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
