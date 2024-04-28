@@ -1,0 +1,53 @@
+name: "Android Build"
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: false
+        type: string
+        default: "release"
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.4
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 18
+          cache: "yarn"
+
+      - name: Install Node modules
+        run: yarn ci
+
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v4.0.2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-caches-
+
+      - name: Make Gradlew Executable
+        run: cd android && chmod +x ./gradlew
+
+      - name: Build Android ${{inputs.environment == 'release' && 'Release' || 'Debug'}}
+        run: cd android && ./gradlew assembleRelease
+
+       # Upload to Artifact
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: CICDTest.apk
+          path: app/build/output/apk/release/app-release.apk
