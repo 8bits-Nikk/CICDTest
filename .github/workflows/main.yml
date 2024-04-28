@@ -41,7 +41,7 @@ jobs:
           coverage-summary-path: ./coverage/coverage-summary.json
           badge-title: Coverage
           coverage-title: My Coverage Title
-          coverage-path: ./coverage.txt
+          coverage-path: ./coverage/coverage.txt
 
       - name: Check the output coverage
         run: |
