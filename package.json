@@ -9,7 +9,7 @@
     "start": "react-native start",
     "test": "jest",
     "ci": "yarn install --frozen-lockfile",
-    "test:ci": "jest --json --outputFile=jest-report.json"
+    "test:ci": "jest --coverage --coverageReporters json-summary"
   },
   "dependencies": {
     "react": "18.2.0",
